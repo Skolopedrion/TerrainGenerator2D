@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from blocks import *
-import conditions as cond
+import conditions as condition
 
 
 class Structure:
@@ -10,7 +10,7 @@ class Structure:
     def __init__(self, pattern, base, cond=lambda: True):
         self.pattern = pattern
         self.base = base
-        self.__call__ = cond
+        self.cond = cond
 
         Structure.structures.append(self)
 
@@ -36,7 +36,7 @@ TREE = Structure(
         [6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   ],
         [6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   ],
         [6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   ],
-        [None, None, None, 6   , 6   , 6   , 6   , 6   , None, None],
+        [None, None, 6   , 6   , 6   , 6   , 6   , 6   , None, None],
         [None, None, None, None, 5   , 5   , 5   , None, None, None],
         [None, None, None, None, 5   , 5   , None, None, None, None],
         [None, None, None, None, 5   , 5   , None, None, None, None],
@@ -44,5 +44,23 @@ TREE = Structure(
         [None, None, None, None, 5   , 5   , None, None, None, None]
     ],
     base=(4, 10),
-    cond=cond.TREE
+    cond=condition.TREE
+)
+
+HOUSE = Structure(
+    lambda: [
+        [None, None, None, 7   , None, None, None],
+        [None, None, 7   , 7   , 7   , None, None],
+        [None, 7   , 7   , 7   , 7   , 7   , None],
+        [7   , 7   , 7   , 7   , 7   , 7   , 7   ],
+        [7   , 7   , 7   , 8   , 7   , 7   , 7   ],
+        [7   , 8   , 7   , 8   , 7   , 8   , 7   ],
+        [7   , 8   , 7   , 8   , 7   , 8   , 7   ],
+        [7   , 7   , 7   , 7   , 7   , 7   , 7   ],
+        [7   , 7   , 7   , 0   , 7   , 7   , 7   ],
+        [7   , 8   , 0   , 0   , 0   , 8   , 7   ],
+        [7   , 7   , 0   , 0   , 0   , 7   , 7   ]
+    ],
+    base=(3, 10),
+    cond=condition.HOUSE
 )

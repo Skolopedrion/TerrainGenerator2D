@@ -3,7 +3,6 @@
 
 import random
 
-from blocks import *
 from structs import *
 
 BLOCK, VOID = True, False

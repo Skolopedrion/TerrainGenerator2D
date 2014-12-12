@@ -49,8 +49,8 @@ GRASS = Block(ID=3, rep='▓')
 COBBLE = Block(ID=4)
 STEM = Block(ID=5, rep='H')
 LEAVES = Block(ID=6, rep='░')
-PLANKS = Block(ID=7, rep='≣')
-WINDOW = Block(ID=8, rep='□')
+PLANKS = Block(ID=7, rep='=')
+WINDOW = Block(ID=8, rep='0')
 
 # Minerals
 SAPHIR = Mineral(ID=9, strat=range(0, 10), prob=3, rep='S')
