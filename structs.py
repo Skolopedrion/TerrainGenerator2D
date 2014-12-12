@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from blocks import *
+import conditions as cond
+
 
 class Structure:
-    def __init__(self, pattern, base):
+    structures = []
+
+    def __init__(self, pattern, base, cond=lambda: True):
         self.pattern = pattern
         self.base = base
+        self.__call__ = cond
+
+        Structure.structures.append(self)
+
     def substitute(self, x, y):
         base_x, base_y = self.base
         get_absolute = lambda rel_x, rel_y: (x+rel_x, y+rel_y)
@@ -23,17 +31,18 @@ class Structure:
 
 TREE = Structure(
     lambda: [
-        [None, None, 6   , 6   , 6   , None, None],
-        [None, 6   , 6   , 6   , 6   , 6   , 6   ],
-        [6   , 6   , 6   , 6   , 6   , 6   , 6   ],
-        [6   , 6   , 6   , 6   , 6   , 6   , 6   ],
-        [6   , 6   , 6   , 6   , 6   , 6   , 6   ],
-        [None, None, 6   , 6   , 6   , 6   , None],
-        [None, None, None, 5   , 5   , None, None],
-        [None, None, None, 5   , None, None, None],
-        [None, None, None, 5   , None, None, None],
-        [None, None, None, 5   , None, None, None],
-        [None, None, None, 5   , None, None, None],
+        [None, None, None, 6   , 6   , 6   , 6   , None, None, None],
+        [None, 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   ],
+        [6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   ],
+        [6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   ],
+        [6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   , 6   ],
+        [None, None, None, 6   , 6   , 6   , 6   , 6   , None, None],
+        [None, None, None, None, 5   , 5   , 5   , None, None, None],
+        [None, None, None, None, 5   , 5   , None, None, None, None],
+        [None, None, None, None, 5   , 5   , None, None, None, None],
+        [None, None, None, None, 5   , 5   , None, None, None, None],
+        [None, None, None, None, 5   , 5   , None, None, None, None]
     ],
-    base=(3, 10)
+    base=(4, 10),
+    cond=cond.TREE
 )

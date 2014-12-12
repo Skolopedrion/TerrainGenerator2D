@@ -6,15 +6,12 @@ import random
 from blocks import *
 from structs import *
 
-HEIGHT = 32
 BLOCK, VOID = True, False
-
-TREE_RATE = 20
 
 
 class Map(list):
-    def __init__(self, length, flatness, height=range(1, 16), headstart=8, deniv=1):
-        self.structures = []
+    def __init__(self, length, flatness, height=range(1, 16), headstart=8, deniv=1, structs=Structure.structures):
+        self.structs = structs
 
         #---------------- Binary terrain generation ----------------#
         array = [[VOID for iy in range(height.stop)] for ix in range(length)]
@@ -92,16 +89,11 @@ class Map(list):
 
         for y, line in enumerate(self):
             for x, block in enumerate(line):
-                if block and not self[x, y-1]:
-                    print(self[x, y-1])
-                    tree = random.randint(0, 1000) in range(TREE_RATE)
-                    if tree:
-                        self.add_structure(TREE, (x, y-1))
+                for s in self.structs:
+                    if s.cond(self, (x, y)):
+                        self.add_structure(s, (x, y))
 
-    
     def add_structure(self, struct, pos):
-        self.structures.append(struct)
-
         for block_pos, block in struct.substitute(*pos):
             x, y = block_pos
             if x >= 0 and y >= 0:
